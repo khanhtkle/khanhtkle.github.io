@@ -19,7 +19,7 @@
   --dot:       rgb(26 26 24 / .07);   /* chấm lưới nền trang đăng nhập */
   --warm:      #fffdf7;   /* đầu hộp thoại chào */
   --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
-  --stage:     var(--surface);        /* nền khung xem báo cáo */
+  --stage:     #fff;                  /* canvas trắng cho khung xem báo cáo */
   --chip-dept-bg: var(--bg);          /* chip phòng ban ở thanh trên trang báo cáo */
   --chip-dept-fg: var(--muted);
   --chip-tag-bg:  var(--bg);          /* thẻ nhãn cuối mỗi thẻ báo cáo */
@@ -46,13 +46,13 @@
 /* Chế độ tối. Tự theo thiết bị; người xem có thể ép Sáng hoặc Tối bằng data-theme trên <html>.
    Hai khối dưới phải giữ giống nhau. Ảnh báo cáo chỉ được giảm sáng nhẹ, không đảo màu. */
 :root[data-theme="dark"] {
-  --bg:        #2c2e33;   /* xám xanh trung tính, không đen: đỡ chói khi đọc lâu */
-  --surface:   #35373d;
-  --surface-2: #313339;
+  --bg:        #24262a;   /* xám xanh trung tính, không đen: đỡ chói khi đọc lâu */
+  --surface:   #383a41;
+  --surface-2: #33353b;
   --ink:       #ebe9e4;   /* trắng ngà, không trắng gắt */
   --muted:     #b6b4ae;
-  --line:      #474a51;
-  --line-strong: #62656d;
+  --line:      #4d5058;
+  --line-strong: #6a6e78;
   --accent:    #8bb4fa;
   --star:      #e0a526;
   --danger:    #f5948c;
@@ -60,18 +60,18 @@
   --ink-hover: #fff;
   --text-2:    #cfcdc7;
   --dot:       rgb(255 255 255 / .05);
-  --warm:      #3a372f;
+  --warm:      #3d3a32;
   --scrim:     rgb(0 0 0 / .55);
-  --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+  --stage:     #fff;      /* canvas trắng cho khung xem báo cáo, như chế độ sáng */
   --chip-dept-bg: #5a5e69;   /* xám đơn sắc, sáng hơn thanh trên để chip nổi lên */
   --chip-dept-fg: #f2f0eb;
-  --chip-tag-bg:  #474a53;   /* nhẹ hơn chip phòng ban, vẫn sáng hơn thẻ */
+  --chip-tag-bg:  #4b4e57;   /* nhẹ hơn chip phòng ban, vẫn sáng hơn thẻ */
   --chip-tag-fg:  #d9d7d2;
   --art-bar:   #5b5f69;
   --art-bar-hot: #7a7e89;
-  --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
+  --ctl-bg:    #454852;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
   --ctl-line:  var(--line);
-  --ctl-bg-hover:   #4b4e58;
+  --ctl-bg-hover:   #51545f;
   --ctl-line-hover: var(--line-strong);
   --img-dim:   brightness(.95);
   --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
@@ -79,13 +79,13 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:        #2c2e33;   /* xám xanh trung tính, không đen: đỡ chói khi đọc lâu */
-    --surface:   #35373d;
-    --surface-2: #313339;
+    --bg:        #24262a;   /* xám xanh trung tính, không đen: đỡ chói khi đọc lâu */
+    --surface:   #383a41;
+    --surface-2: #33353b;
     --ink:       #ebe9e4;   /* trắng ngà, không trắng gắt */
     --muted:     #b6b4ae;
-    --line:      #474a51;
-    --line-strong: #62656d;
+    --line:      #4d5058;
+    --line-strong: #6a6e78;
     --accent:    #8bb4fa;
     --star:      #e0a526;
     --danger:    #f5948c;
@@ -93,18 +93,18 @@
     --ink-hover: #fff;
     --text-2:    #cfcdc7;
     --dot:       rgb(255 255 255 / .05);
-    --warm:      #3a372f;
+    --warm:      #3d3a32;
     --scrim:     rgb(0 0 0 / .55);
-    --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+    --stage:     #fff;      /* canvas trắng cho khung xem báo cáo, như chế độ sáng */
     --chip-dept-bg: #5a5e69;   /* xám đơn sắc, sáng hơn thanh trên để chip nổi lên */
     --chip-dept-fg: #f2f0eb;
-    --chip-tag-bg:  #474a53;   /* nhẹ hơn chip phòng ban, vẫn sáng hơn thẻ */
+    --chip-tag-bg:  #4b4e57;   /* nhẹ hơn chip phòng ban, vẫn sáng hơn thẻ */
     --chip-tag-fg:  #d9d7d2;
     --art-bar:   #5b5f69;
     --art-bar-hot: #7a7e89;
-    --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
+    --ctl-bg:    #454852;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
     --ctl-line:  var(--line);
-    --ctl-bg-hover:   #4b4e58;
+    --ctl-bg-hover:   #51545f;
     --ctl-line-hover: var(--line-strong);
     --img-dim:   brightness(.95);
     --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
@@ -901,7 +901,18 @@ body[data-page="viewer"] {
   background: var(--stage);
   overflow: hidden;
 }
+/* Canvas báo cáo luôn trắng, nên mọi thứ nằm trong khung (mũi tên lật trang, thông báo) dùng bảng màu sáng ở cả hai chế độ */
+.stage {
+  --ink: #1a1a18;
+  --muted: #6b6a66;
+  --line: #deddd9;
+  --line-strong: #c4c2bc;
+  --surface: #fdfdfc;
+  --surface-2: #fbfaf9;
+  color-scheme: light;
+}
 .stage img {
+  filter: none;            /* canvas trắng nên không cần làm dịu ảnh */
   position: absolute;
   inset: 0;
   width: 100%;

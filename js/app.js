@@ -68,7 +68,7 @@ function setLang(lang) {
 
 // Giao diện chỉ có Sáng hoặc Tối. Chưa chọn thì theo thiết bị; bấm nút trên thanh trên là chọn hẳn và được nhớ.
 // Trang đã áp sẵn lựa chọn bằng đoạn script nhỏ ở đầu <head>.
-const THEME_COLOR = { light: "#f2f1ee", dark: "#2c2e33" };
+const THEME_COLOR = { light: "#f2f1ee", dark: "#24262a" };
 const DARK_MQ = matchMedia("(prefers-color-scheme: dark)");
 let THEME = (() => {
   try { const v = localStorage.getItem("theme"); return v === "light" || v === "dark" ? v : ""; } catch (_) { return ""; }
