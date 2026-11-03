@@ -702,14 +702,14 @@ function renderLoginArt() {
     const hot = i % 9 === 4;
     return `<rect class="bar${hot ? " bar-hot" : ""}" style="--i:${i}" x="${x}" y="${(H - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3"/>`;
   }).join("");
-  // Đường xu hướng: lấy mẫu từ vài sóng sin chậm (không bám theo độ cao từng cột nên không bị gập),
-  // rồi nối bằng đường Bézier kiểu Catmull-Rom để mọi khúc cong tròn đều.
-  const K = 12;
-  const pts = Array.from({ length: K + 1 }, (_, k) => {
-    const u = k / K;
-    const y = H * (0.5 - 0.13 * Math.sin(u * 6.9 + 0.6) - 0.055 * Math.sin(u * 13.8 + 1.4) - 0.12 * u);
-    return [u * W, y];
-  });
+  // Đường xu hướng bám theo độ cao các cột như trước. Giá trị được làm trơn vài lượt để hết đỉnh nhọn,
+  // rồi nối bằng đường Bézier kiểu Catmull-Rom nên các khúc cong liền mạch, không bị gập.
+  const ys = hs.map((h, i) => H - (h * 0.72 + 56 + 18 * Math.sin(i * 0.4)));
+  for (let pass = 0; pass < 3; pass++) {
+    const prev = ys.slice();
+    for (let i = 1; i < ys.length - 1; i++) ys[i] = (prev[i - 1] + 2 * prev[i] + prev[i + 1]) / 4;
+  }
+  const pts = ys.map((y, i) => [i * slot + slot / 2, y]);
   let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
   for (let i = 0; i < pts.length - 1; i++) {
     const p0 = pts[Math.max(i - 1, 0)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(i + 2, pts.length - 1)];
