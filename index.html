@@ -26,6 +26,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Be+Vietnam+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Áp giao diện Sáng/Tối đã chọn trước khi vẽ trang, để không bị nháy -->
+  <script>
+    try { var th = localStorage.getItem("theme"); if (th === "light" || th === "dark") document.documentElement.dataset.theme = th; } catch (_) {}
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="home">

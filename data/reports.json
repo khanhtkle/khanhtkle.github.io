@@ -681,6 +681,15 @@
         "vi": "Ngôn ngữ",
         "en": "Language"
       },
+      "theme": {
+        "vi": "Giao diện",
+        "en": "Theme"
+      },
+      "themes": {
+        "auto": { "vi": "Tự động", "en": "Auto" },
+        "light": { "vi": "Sáng", "en": "Light" },
+        "dark": { "vi": "Tối", "en": "Dark" }
+      },
       "shortcuts": {
         "vi": "Phím tắt",
         "en": "Keyboard shortcuts"

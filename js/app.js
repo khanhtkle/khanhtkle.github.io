@@ -66,6 +66,36 @@ function setLang(lang) {
   render();   // vẽ lại trang bằng ngôn ngữ mới
 }
 
+// Giao diện: auto (theo thiết bị), light hoặc dark. Trang đã áp sẵn bằng đoạn script nhỏ ở đầu <head>.
+const THEME_COLOR = { light: "#f2f1ee", dark: "#1e1f21" };
+let THEME = (() => {
+  try { const v = localStorage.getItem("theme"); return v === "light" || v === "dark" ? v : "auto"; } catch (_) { return "auto"; }
+})();
+
+function applyTheme() {
+  const root = document.documentElement;
+  if (THEME === "auto") root.removeAttribute("data-theme"); else root.dataset.theme = THEME;
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+    const own = /dark/.test(m.media) ? "dark" : "light";   // ở chế độ tự động, mỗi thẻ giữ màu của chính nó
+    m.content = THEME_COLOR[THEME === "auto" ? own : THEME];
+  });
+}
+
+function setTheme(mode) {
+  THEME = mode;
+  try { if (mode === "auto") localStorage.removeItem("theme"); else localStorage.setItem("theme", mode); } catch (_) {}
+  track("theme", { mode });
+  applyTheme();
+  renderThemeSwitch();
+}
+
+function renderThemeSwitch() {
+  document.querySelectorAll(".theme-sw button").forEach(b => {
+    b.setAttribute("aria-pressed", b.dataset.mode === THEME);
+    b.onclick = () => { if (b.dataset.mode !== THEME) setTheme(b.dataset.mode); };
+  });
+}
+
 // Lấy chuỗi đúng ngôn ngữ từ một đối tượng dạng { vi: "...", en: "..." }
 function t(obj) {
   if (typeof obj === "string") return obj;
@@ -141,6 +171,7 @@ function saveEntry(kind, prefix, entry) {
 // Bộ biểu tượng: Phosphor Icons (kiểu regular, giấy phép MIT), https://phosphoricons.com
 // Mỗi biểu tượng là phần ruột của SVG 256×256, tô bằng màu chữ hiện tại.
 const ICONS = {
+  contrast: '<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192V40a88,88,0,0,1,0,176Z"/>',
   grid: '<path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/>',
   star: '<path d="M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.46,16.46,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z"/>',
   starFill: '<path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/>',
@@ -185,7 +216,7 @@ function toast(msg) {
 
 // Nút VI | EN. Ở trang đăng nhập nằm góc phải; sau đăng nhập nằm trong menu người dùng.
 function renderLangSwitch() {
-  document.querySelectorAll(".lang button").forEach(b => {
+  document.querySelectorAll(".lang:not(.theme-sw) button").forEach(b => {
     b.setAttribute("aria-pressed", b.dataset.lang === LANG);
     b.onclick = () => {
       if (b.dataset.lang === LANG) return;
@@ -239,6 +270,12 @@ function renderChrome() {
         <button type="button" data-lang="en">EN</button>
       </div>
     </div>
+    <div class="menu-row">
+      <span class="menu-lbl">${ico("contrast")}${t(P.menu.theme)}</span>
+      <div class="lang theme-sw" role="group" aria-label="${t(P.menu.theme)}">
+        ${["auto", "light", "dark"].map(m => `<button type="button" data-mode="${m}">${t(P.menu.themes[m])}</button>`).join("")}
+      </div>
+    </div>
     <div class="menu-sep"></div>
     <button type="button" class="menu-item" data-sec="sec-shortcuts">${ico("keyboard")}${t(P.menu.shortcuts)}</button>
     <button type="button" class="menu-item" data-sec="sec-top">${ico("info")}${t(P.menu.about)}</button>
@@ -251,6 +288,7 @@ function renderChrome() {
   menu.querySelector(".menu-out").onclick = signOut;
   document.querySelector(".user-btn").onclick = e => { e.stopPropagation(); togglePop(".user"); };
   renderLangSwitch();
+  renderThemeSwitch();
 
   renderNotifs();
 
@@ -1279,6 +1317,7 @@ function render() {
   if (page !== "login" && !session.active()) { location.replace("login"); return; }
 
   document.documentElement.lang = LANG;
+  applyTheme();
   await loadData();
   if (page === "viewer") bindViewerControls();
   if (page !== "login") bindGlobal();

@@ -19,6 +19,8 @@
   --dot:       rgb(26 26 24 / .07);   /* chấm lưới nền trang đăng nhập */
   --warm:      #fffdf7;   /* đầu hộp thoại chào */
   --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
+  --stage:     var(--surface);        /* nền khung xem báo cáo */
+  --img-dim:   none;                  /* làm dịu ảnh báo cáo ở chế độ tối */
   color-scheme: light;
 
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -31,26 +33,51 @@
   --pop-shadow: 0 8px 24px rgb(26 26 24 / .10);   /* bóng ấm, chỉ cho menu nổi */
 }
 
-/* Chế độ tối: tự dùng khi thiết bị của người xem chọn giao diện tối. Ảnh báo cáo giữ nguyên. */
+/* Chế độ tối. Tự theo thiết bị; người xem có thể ép Sáng hoặc Tối bằng data-theme trên <html>.
+   Hai khối dưới phải giữ giống nhau. Ảnh báo cáo chỉ được giảm sáng nhẹ, không đảo màu. */
+:root[data-theme="dark"] {
+  --bg:        #1e1f21;   /* xám than, không đen tuyền: đỡ chói khi đọc lâu */
+  --surface:   #27282b;
+  --surface-2: #232426;
+  --ink:       #e4e2dd;   /* trắng ngà, không trắng gắt */
+  --muted:     #a9a7a1;
+  --line:      #38393c;
+  --line-strong: #505156;
+  --accent:    #7aa9f7;
+  --star:      #e0a526;
+  --danger:    #f2857d;
+  --danger-bg: #33201e;
+  --ink-hover: #fff;
+  --text-2:    #c3c1bb;
+  --dot:       rgb(255 255 255 / .05);
+  --warm:      #2b2923;
+  --scrim:     rgb(0 0 0 / .55);
+  --stage:     #303135;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+  --img-dim:   brightness(.92);
+  --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
+  color-scheme: dark;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg:        #151514;
-    --surface:   #1d1d1b;
-    --surface-2: #191918;
-    --ink:       #ecebe8;
-    --muted:     #a3a29d;
-    --line:      #2e2d2b;
-    --line-strong: #45443f;
-    --accent:    #6aa1f8;
+  :root:not([data-theme="light"]) {
+    --bg:        #1e1f21;   /* xám than, không đen tuyền: đỡ chói khi đọc lâu */
+    --surface:   #27282b;
+    --surface-2: #232426;
+    --ink:       #e4e2dd;   /* trắng ngà, không trắng gắt */
+    --muted:     #a9a7a1;
+    --line:      #38393c;
+    --line-strong: #505156;
+    --accent:    #7aa9f7;
     --star:      #e0a526;
-    --danger:    #f2766e;
-    --danger-bg: #2b1816;
+    --danger:    #f2857d;
+    --danger-bg: #33201e;
     --ink-hover: #fff;
-    --text-2:    #bdbcb7;
-    --dot:       rgb(255 255 255 / .06);
-    --warm:      #25231d;
-    --scrim:     rgb(0 0 0 / .6);
-    --pop-shadow: 0 8px 24px rgb(0 0 0 / .5);
+    --text-2:    #c3c1bb;
+    --dot:       rgb(255 255 255 / .05);
+    --warm:      #2b2923;
+    --scrim:     rgb(0 0 0 / .55);
+    --stage:     #303135;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+    --img-dim:   brightness(.92);
+    --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
     color-scheme: dark;
   }
 }
@@ -68,6 +95,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img { display: block; max-width: 100%; }
+img[src*="reports/"] { filter: var(--img-dim); }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 button:disabled { cursor: default; }
@@ -298,6 +326,7 @@ kbd {
 .menu-lbl { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
 .menu-row .lang { height: 30px; padding: 2px; }
 .menu-row .lang button { min-width: 34px; padding: 0 8px; font-size: 12px; }
+.menu-row .theme-sw button { min-width: 0; padding: 0 7px; }
 .menu-sep { height: 1px; margin: 10px -14px; background: var(--line); }
 .menu-item {
   display: flex;
@@ -828,7 +857,7 @@ body[data-page="viewer"] {
   min-height: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--stage);
   overflow: hidden;
 }
 .stage img {
