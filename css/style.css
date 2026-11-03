@@ -20,6 +20,10 @@
   --warm:      #fffdf7;   /* đầu hộp thoại chào */
   --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
   --stage:     var(--surface);        /* nền khung xem báo cáo */
+  --chip-dept-bg: var(--bg);          /* chip phòng ban ở thanh trên trang báo cáo */
+  --chip-dept-fg: var(--muted);
+  --chip-tag-bg:  var(--bg);          /* thẻ nhãn cuối mỗi thẻ báo cáo */
+  --chip-tag-fg:  var(--muted);
   --art-bar:   #e6e5e1;               /* cột biểu đồ minh họa ở trang đăng nhập: xám sáng */
   --art-bar-hot: #d6d4cf;             /* cột nhấn: đậm hơn một bậc, cùng tông xám */
   --ctl-bg:    #fff;                  /* nút và ô nhập: nền nổi hơn thẻ; viền dùng chung màu với mọi viền khác */
@@ -59,6 +63,10 @@
   --warm:      #3a372f;
   --scrim:     rgb(0 0 0 / .55);
   --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+  --chip-dept-bg: #5a5e69;   /* xám đơn sắc, sáng hơn thanh trên để chip nổi lên */
+  --chip-dept-fg: #f2f0eb;
+  --chip-tag-bg:  #474a53;   /* nhẹ hơn chip phòng ban, vẫn sáng hơn thẻ */
+  --chip-tag-fg:  #d9d7d2;
   --art-bar:   #5b5f69;
   --art-bar-hot: #7a7e89;
   --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
@@ -88,6 +96,10 @@
     --warm:      #3a372f;
     --scrim:     rgb(0 0 0 / .55);
     --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+    --chip-dept-bg: #5a5e69;   /* xám đơn sắc, sáng hơn thanh trên để chip nổi lên */
+    --chip-dept-fg: #f2f0eb;
+    --chip-tag-bg:  #474a53;   /* nhẹ hơn chip phòng ban, vẫn sáng hơn thẻ */
+    --chip-tag-fg:  #d9d7d2;
     --art-bar:   #5b5f69;
     --art-bar-hot: #7a7e89;
     --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
@@ -1122,13 +1134,13 @@ dialog.dlg { overscroll-behavior: contain; }
 
 /* Phòng ban cạnh tên báo cáo: chip nền xám, cùng icon với mục phòng ban ở trang chủ */
 .hd { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.topbar-dept { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; height: var(--ctl); padding: 0 14px 0 12px; border-radius: var(--radius-sm); background: var(--bg); color: var(--muted); font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; }
+.topbar-dept { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; height: var(--ctl); padding: 0 14px 0 12px; border-radius: var(--radius-sm); background: var(--chip-dept-bg); color: var(--chip-dept-fg); font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; }
 .topbar-dept .ico { width: 16px; height: 16px; }
 @media (max-width: 900px) { .topbar-dept { display: none; } }
 
 /* Thẻ chủ đề dưới mô tả báo cáo */
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 0; padding: 12px 0 0; list-style: none; }
-.tags li { padding: 2px 8px; border-radius: 4px; background: var(--bg); color: var(--muted); font-size: 12px; line-height: 1.5; }
+.tags li { padding: 2px 8px; border-radius: 4px; background: var(--chip-tag-bg); color: var(--chip-tag-fg); font-size: 12px; line-height: 1.5; }
 
 /* Liên hệ */
 .contact { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; padding: 0; list-style: none; }
