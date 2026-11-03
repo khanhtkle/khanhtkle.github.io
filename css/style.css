@@ -20,10 +20,10 @@
   --warm:      #fffdf7;   /* đầu hộp thoại chào */
   --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
   --stage:     var(--surface);        /* nền khung xem báo cáo */
-  --ctl-bg:    var(--surface);        /* nút và ô nhập: nền, viền, và khi rê chuột */
-  --ctl-line:  var(--line);
-  --ctl-bg-hover:   var(--surface-2);
-  --ctl-line-hover: var(--line-strong);
+  --ctl-bg:    #fff;                  /* nút và ô nhập: nền, viền, và khi rê chuột; viền đạt khoảng 3:1 */
+  --ctl-line:  #8f8e89;
+  --ctl-bg-hover:   #f2f1ee;
+  --ctl-line-hover: #5f5e5a;
   --img-dim:   none;                  /* làm dịu ảnh báo cáo ở chế độ tối */
   color-scheme: light;
 
