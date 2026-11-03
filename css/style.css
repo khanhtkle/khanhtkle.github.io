@@ -20,6 +20,8 @@
   --warm:      #fffdf7;   /* đầu hộp thoại chào */
   --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
   --stage:     var(--surface);        /* nền khung xem báo cáo */
+  --art-bar:   #e6e5e1;               /* cột biểu đồ minh họa ở trang đăng nhập: xám sáng */
+  --art-bar-hot: #d6d4cf;             /* cột nhấn: đậm hơn một bậc, cùng tông xám */
   --ctl-bg:    #fff;                  /* nút và ô nhập: nền nổi hơn thẻ; viền dùng chung màu với mọi viền khác */
   --ctl-line:  var(--line);
   --ctl-bg-hover:   #f2f1ee;
@@ -57,6 +59,8 @@
   --warm:      #3a372f;
   --scrim:     rgb(0 0 0 / .55);
   --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+  --art-bar:   #5b5f69;
+  --art-bar-hot: #7a7e89;
   --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
   --ctl-line:  var(--line);
   --ctl-bg-hover:   #4b4e58;
@@ -84,6 +88,8 @@
     --warm:      #3a372f;
     --scrim:     rgb(0 0 0 / .55);
     --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+    --art-bar:   #5b5f69;
+    --art-bar-hot: #7a7e89;
     --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
     --ctl-line:  var(--line);
     --ctl-bg-hover:   #4b4e58;
@@ -392,14 +398,13 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
 .login-art .grid-lines line { stroke: var(--ink); stroke-opacity: .08; stroke-dasharray: 3 6; }
 .login-art .base { stroke: var(--ink); stroke-opacity: .22; }
 .login-art .bar {
-  fill: var(--ink);
-  fill-opacity: .09;
+  fill: var(--art-bar);
   transform-box: fill-box;
   transform-origin: 50% 100%;
   animation: bar-breathe 7s ease-in-out infinite;
   animation-delay: calc(var(--i) * -.55s);
 }
-.login-art .bar-hot { fill: var(--accent); fill-opacity: .3; }
+.login-art .bar-hot { fill: var(--art-bar-hot); }
 .login-art .trend {
   fill: none;
   stroke: var(--accent);
