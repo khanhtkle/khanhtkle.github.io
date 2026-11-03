@@ -20,10 +20,10 @@
   --warm:      #fffdf7;   /* đầu hộp thoại chào */
   --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
   --stage:     var(--surface);        /* nền khung xem báo cáo */
-  --ctl-bg:    #fff;                  /* nút và ô nhập: nền, viền, và khi rê chuột; viền đạt khoảng 3:1 */
-  --ctl-line:  #8f8e89;
+  --ctl-bg:    #fff;                  /* nút và ô nhập: nền nổi hơn thẻ; viền dùng chung màu với mọi viền khác */
+  --ctl-line:  var(--line);
   --ctl-bg-hover:   #f2f1ee;
-  --ctl-line-hover: #5f5e5a;
+  --ctl-line-hover: var(--line-strong);
   --img-dim:   none;                  /* làm dịu ảnh báo cáo ở chế độ tối */
   color-scheme: light;
 
@@ -57,10 +57,10 @@
   --warm:      #3a372f;
   --scrim:     rgb(0 0 0 / .55);
   --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
-  --ctl-bg:    #40434b;   /* nút sáng hơn thẻ, viền đạt khoảng 3:1 để nhận ra là nút bấm */
-  --ctl-line:  #868a95;
+  --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
+  --ctl-line:  var(--line);
   --ctl-bg-hover:   #4b4e58;
-  --ctl-line-hover: #a9adb8;
+  --ctl-line-hover: var(--line-strong);
   --img-dim:   brightness(.95);
   --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
   color-scheme: dark;
@@ -84,10 +84,10 @@
     --warm:      #3a372f;
     --scrim:     rgb(0 0 0 / .55);
     --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
-    --ctl-bg:    #40434b;   /* nút sáng hơn thẻ, viền đạt khoảng 3:1 để nhận ra là nút bấm */
-    --ctl-line:  #868a95;
+    --ctl-bg:    #40434b;   /* nút sáng hơn thẻ; viền dùng chung màu với mọi viền khác */
+    --ctl-line:  var(--line);
     --ctl-bg-hover:   #4b4e58;
-    --ctl-line-hover: #a9adb8;
+    --ctl-line-hover: var(--line-strong);
     --img-dim:   brightness(.95);
     --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
     color-scheme: dark;
