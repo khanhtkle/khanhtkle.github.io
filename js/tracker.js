@@ -21,7 +21,8 @@
     const n = location.pathname.split("/").pop() || "index";
     return /\.html$/.test(n) ? n : n + ".html";
   };
-  if (/\.html$/.test(location.pathname)) {
+  // Chạy trên máy cá nhân (Live Server...) thì giữ nguyên .html, vì các máy chủ đó không tự hiểu địa chỉ bỏ đuôi.
+  if (/\.html$/.test(location.pathname) && !/^(localhost|127\.|\[::1\])/.test(location.hostname)) {
     try {
       const clean = location.pathname.replace(/index\.html$/, "").replace(/\.html$/, "");
       history.replaceState(null, "", (clean || "/") + location.search + location.hash);
