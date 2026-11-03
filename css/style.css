@@ -14,6 +14,12 @@
   --star:      #c98a00;   /* ngôi sao đã đánh dấu */
   --danger:    #b3261e;   /* lỗi nhập liệu */
   --danger-bg: #fdf3f2;
+  --ink-hover: #000;      /* nền nút chính khi rê chuột */
+  --text-2:    #55544f;   /* chữ mô tả trong thẻ */
+  --dot:       rgb(26 26 24 / .07);   /* chấm lưới nền trang đăng nhập */
+  --warm:      #fffdf7;   /* đầu hộp thoại chào */
+  --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
+  color-scheme: light;
 
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius: 10px;         /* thẻ, khung */
@@ -23,6 +29,30 @@
   --chrome-h: calc(var(--topbar-h) + 1px);
   --ctl: 37px;            /* cỡ chung của nút trên thanh trên: chuông, avatar, tìm nhanh, công cụ */
   --pop-shadow: 0 8px 24px rgb(26 26 24 / .10);   /* bóng ấm, chỉ cho menu nổi */
+}
+
+/* Chế độ tối: tự dùng khi thiết bị của người xem chọn giao diện tối. Ảnh báo cáo giữ nguyên. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #151514;
+    --surface:   #1d1d1b;
+    --surface-2: #191918;
+    --ink:       #ecebe8;
+    --muted:     #a3a29d;
+    --line:      #2e2d2b;
+    --line-strong: #45443f;
+    --accent:    #6aa1f8;
+    --star:      #e0a526;
+    --danger:    #f2766e;
+    --danger-bg: #2b1816;
+    --ink-hover: #fff;
+    --text-2:    #bdbcb7;
+    --dot:       rgb(255 255 255 / .06);
+    --warm:      #25231d;
+    --scrim:     rgb(0 0 0 / .6);
+    --pop-shadow: 0 8px 24px rgb(0 0 0 / .5);
+    color-scheme: dark;
+  }
 }
 
 /* ---------- Đặt lại mặc định ---------- */
@@ -86,7 +116,7 @@ kbd {
 .btn:hover { border-color: var(--line-strong); background: var(--surface-2); }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--ink); border-color: var(--ink); color: var(--surface); }
-.btn-primary:hover { background: #000; border-color: #000; }
+.btn-primary:hover { background: var(--ink-hover); border-color: var(--ink-hover); }
 .btn:disabled { opacity: .7; transform: none; }
 
 /* Nút ngôn ngữ: hai lựa chọn liền nhau, bên đang dùng được tô đậm */
@@ -300,7 +330,7 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
   padding: 40px 64px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 1px 1px, rgb(26 26 24 / .07) 1px, transparent 0) 0 0 / 22px 22px,
+    radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0) 0 0 / 22px 22px,
     var(--surface);
   border-right: 1px solid var(--line);
 }
@@ -381,7 +411,7 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
 .sso .ms-logo { filter: grayscale(1); opacity: .5; }
 .sso-label { opacity: .8; }
 .guest-btn { background: var(--ink); border-color: var(--ink); color: var(--surface); cursor: pointer; }
-.guest-btn:hover { background: #000; border-color: #000; }
+.guest-btn:hover { background: var(--ink-hover); border-color: var(--ink-hover); }
 .guest-btn:active { transform: translateY(1px); }
 .link-btn { display: block; margin: 16px auto 0; color: var(--muted); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
 .link-btn:hover { color: var(--ink); }
@@ -572,7 +602,7 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
   font-variant-numeric: tabular-nums;
 }
 .card h2 { margin: 0 0 6px; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
-.card p { margin: 0; color: #55544f; font-size: 14px; line-height: 1.55; text-wrap: pretty; }
+.card p { margin: 0; color: var(--text-2); font-size: 14px; line-height: 1.55; text-wrap: pretty; }
 
 /* Nút đánh dấu sao, nổi lên góc phải khung ảnh */
 .pin {
@@ -619,7 +649,7 @@ dialog.dlg {
   overflow-y: auto;
   box-shadow: var(--pop-shadow);
 }
-dialog.dlg::backdrop { background: rgb(26 26 24 / .4); }
+dialog.dlg::backdrop { background: var(--scrim); }
 .dlg-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .dlg-head h2 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
 .dlg-x { width: 28px; height: 28px; border-radius: var(--radius-sm); font-size: 20px; line-height: 1; color: var(--muted); }
@@ -1008,12 +1038,12 @@ body[data-page="viewer"] {
 
 
 /* Cửa sổ giới thiệu nhỏ ở trang đăng nhập */
-dialog.welcome { width: min(600px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 20px 28px 26px; font-family: "Be Vietnam Pro", var(--font); background: linear-gradient(180deg, #fffdf7 0, var(--surface) 140px); }
+dialog.welcome { width: min(600px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 20px 28px 26px; font-family: "Be Vietnam Pro", var(--font); background: linear-gradient(180deg, var(--warm) 0, var(--surface) 140px); }
 dialog.welcome .dlg-head { margin-bottom: 18px; }
 .wc-eyebrow { color: var(--muted); font-size: 11.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .wc-title { margin: 0 0 12px; font-size: 28px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; text-wrap: balance; }
 .wc-greet { margin: 0 0 14px; font-size: 15px; font-weight: 500; line-height: 1.55; text-wrap: pretty; }
-.wc-body { margin: 0 0 12px; color: #55544f; font-size: 14px; line-height: 1.65; text-wrap: pretty; }
+.wc-body { margin: 0 0 12px; color: var(--text-2); font-size: 14px; line-height: 1.65; text-wrap: pretty; }
 .wc-brand { display: inline-flex; align-items: center; gap: 10px; }
 .wc-brand .brand-mark { width: 26px; height: 26px; border-radius: 7px; }
 .wc-brand .brand-mark svg { width: 16px; height: 16px; }
