@@ -103,14 +103,20 @@ function drawThemeBtn() {
   btn.title = label;
 }
 
+// Được gọi lại mỗi lần vẽ lại trang (ví dụ đổi ngôn ngữ): chỉ tạo nút và gắn lắng nghe một lần, các lần sau chỉ vẽ lại nhãn.
+let themeBound = false;
 function bindThemeBtn() {
-  const pal = document.querySelector(".palette-btn");
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "icon-btn theme-btn";
-  btn.onclick = () => setTheme(themeNow() === "dark" ? "light" : "dark");
-  pal.after(btn);
-  DARK_MQ.addEventListener("change", () => { if (!THEME) applyTheme(); });
+  if (!document.querySelector(".theme-btn")) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "icon-btn theme-btn";
+    btn.onclick = () => setTheme(themeNow() === "dark" ? "light" : "dark");
+    document.querySelector(".palette-btn").after(btn);
+  }
+  if (!themeBound) {
+    themeBound = true;
+    DARK_MQ.addEventListener("change", () => { if (!THEME) applyTheme(); });
+  }
   drawThemeBtn();
 }
 
