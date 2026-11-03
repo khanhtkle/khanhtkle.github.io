@@ -676,19 +676,14 @@
       "vi": "Thư viện",
       "en": "Library"
     },
+    "theme": {
+      "toDark": { "vi": "Chuyển sang giao diện tối", "en": "Switch to dark theme" },
+      "toLight": { "vi": "Chuyển sang giao diện sáng", "en": "Switch to light theme" }
+    },
     "menu": {
       "language": {
         "vi": "Ngôn ngữ",
         "en": "Language"
-      },
-      "theme": {
-        "vi": "Giao diện",
-        "en": "Theme"
-      },
-      "themes": {
-        "auto": { "vi": "Tự động", "en": "Auto" },
-        "light": { "vi": "Sáng", "en": "Light" },
-        "dark": { "vi": "Tối", "en": "Dark" }
       },
       "shortcuts": {
         "vi": "Phím tắt",

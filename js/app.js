@@ -66,34 +66,52 @@ function setLang(lang) {
   render();   // vẽ lại trang bằng ngôn ngữ mới
 }
 
-// Giao diện: auto (theo thiết bị), light hoặc dark. Trang đã áp sẵn bằng đoạn script nhỏ ở đầu <head>.
-const THEME_COLOR = { light: "#f2f1ee", dark: "#1e1f21" };
+// Giao diện chỉ có Sáng hoặc Tối. Chưa chọn thì theo thiết bị; bấm nút trên thanh trên là chọn hẳn và được nhớ.
+// Trang đã áp sẵn lựa chọn bằng đoạn script nhỏ ở đầu <head>.
+const THEME_COLOR = { light: "#f2f1ee", dark: "#2c2e33" };
+const DARK_MQ = matchMedia("(prefers-color-scheme: dark)");
 let THEME = (() => {
-  try { const v = localStorage.getItem("theme"); return v === "light" || v === "dark" ? v : "auto"; } catch (_) { return "auto"; }
+  try { const v = localStorage.getItem("theme"); return v === "light" || v === "dark" ? v : ""; } catch (_) { return ""; }
 })();
+const themeNow = () => THEME || (DARK_MQ.matches ? "dark" : "light");
 
 function applyTheme() {
   const root = document.documentElement;
-  if (THEME === "auto") root.removeAttribute("data-theme"); else root.dataset.theme = THEME;
+  if (THEME) root.dataset.theme = THEME; else root.removeAttribute("data-theme");
   document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
-    const own = /dark/.test(m.media) ? "dark" : "light";   // ở chế độ tự động, mỗi thẻ giữ màu của chính nó
-    m.content = THEME_COLOR[THEME === "auto" ? own : THEME];
+    const own = /dark/.test(m.media) ? "dark" : "light";   // chưa chọn: mỗi thẻ giữ màu của chính nó
+    m.content = THEME_COLOR[THEME || own];
   });
+  drawThemeBtn();
 }
 
 function setTheme(mode) {
   THEME = mode;
-  try { if (mode === "auto") localStorage.removeItem("theme"); else localStorage.setItem("theme", mode); } catch (_) {}
+  try { localStorage.setItem("theme", mode); } catch (_) {}
   track("theme", { mode });
   applyTheme();
-  renderThemeSwitch();
 }
 
-function renderThemeSwitch() {
-  document.querySelectorAll(".theme-sw button").forEach(b => {
-    b.setAttribute("aria-pressed", b.dataset.mode === THEME);
-    b.onclick = () => { if (b.dataset.mode !== THEME) setTheme(b.dataset.mode); };
-  });
+// Nút đổi giao diện: hiện biểu tượng của giao diện sẽ chuyển sang
+function drawThemeBtn() {
+  const btn = document.querySelector(".theme-btn");
+  if (!btn) return;
+  const toDark = themeNow() === "light";
+  const label = t(DATA.portal.theme[toDark ? "toDark" : "toLight"]);
+  btn.innerHTML = ico(toDark ? "moon" : "sun");
+  btn.setAttribute("aria-label", label);
+  btn.title = label;
+}
+
+function bindThemeBtn() {
+  const pal = document.querySelector(".palette-btn");
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "icon-btn theme-btn";
+  btn.onclick = () => setTheme(themeNow() === "dark" ? "light" : "dark");
+  pal.after(btn);
+  DARK_MQ.addEventListener("change", () => { if (!THEME) applyTheme(); });
+  drawThemeBtn();
 }
 
 // Lấy chuỗi đúng ngôn ngữ từ một đối tượng dạng { vi: "...", en: "..." }
@@ -171,7 +189,8 @@ function saveEntry(kind, prefix, entry) {
 // Bộ biểu tượng: Phosphor Icons (kiểu regular, giấy phép MIT), https://phosphoricons.com
 // Mỗi biểu tượng là phần ruột của SVG 256×256, tô bằng màu chữ hiện tại.
 const ICONS = {
-  contrast: '<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192V40a88,88,0,0,1,0,176Z"/>',
+  sun: '<path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/>',
+  moon: '<path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/>',
   grid: '<path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/>',
   star: '<path d="M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.46,16.46,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z"/>',
   starFill: '<path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/>',
@@ -216,7 +235,7 @@ function toast(msg) {
 
 // Nút VI | EN. Ở trang đăng nhập nằm góc phải; sau đăng nhập nằm trong menu người dùng.
 function renderLangSwitch() {
-  document.querySelectorAll(".lang:not(.theme-sw) button").forEach(b => {
+  document.querySelectorAll(".lang button").forEach(b => {
     b.setAttribute("aria-pressed", b.dataset.lang === LANG);
     b.onclick = () => {
       if (b.dataset.lang === LANG) return;
@@ -255,6 +274,7 @@ function renderChrome() {
   pal.setAttribute("aria-label", t(P.palette.button));
   pal.title = `${t(P.palette.button)} (${MOD} K)`;
   pal.onclick = openPalette;
+  bindThemeBtn();
 
   // Menu người dùng: tài khoản, ngôn ngữ, trợ giúp, đăng xuất
   const menu = document.querySelector(".user-menu");
@@ -270,12 +290,6 @@ function renderChrome() {
         <button type="button" data-lang="en">EN</button>
       </div>
     </div>
-    <div class="menu-row">
-      <span class="menu-lbl">${ico("contrast")}${t(P.menu.theme)}</span>
-      <div class="lang theme-sw" role="group" aria-label="${t(P.menu.theme)}">
-        ${["auto", "light", "dark"].map(m => `<button type="button" data-mode="${m}">${t(P.menu.themes[m])}</button>`).join("")}
-      </div>
-    </div>
     <div class="menu-sep"></div>
     <button type="button" class="menu-item" data-sec="sec-shortcuts">${ico("keyboard")}${t(P.menu.shortcuts)}</button>
     <button type="button" class="menu-item" data-sec="sec-top">${ico("info")}${t(P.menu.about)}</button>
@@ -288,7 +302,6 @@ function renderChrome() {
   menu.querySelector(".menu-out").onclick = signOut;
   document.querySelector(".user-btn").onclick = e => { e.stopPropagation(); togglePop(".user"); };
   renderLangSwitch();
-  renderThemeSwitch();
 
   renderNotifs();
 

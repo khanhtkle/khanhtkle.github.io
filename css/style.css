@@ -36,47 +36,47 @@
 /* Chế độ tối. Tự theo thiết bị; người xem có thể ép Sáng hoặc Tối bằng data-theme trên <html>.
    Hai khối dưới phải giữ giống nhau. Ảnh báo cáo chỉ được giảm sáng nhẹ, không đảo màu. */
 :root[data-theme="dark"] {
-  --bg:        #1e1f21;   /* xám than, không đen tuyền: đỡ chói khi đọc lâu */
-  --surface:   #27282b;
-  --surface-2: #232426;
-  --ink:       #e4e2dd;   /* trắng ngà, không trắng gắt */
-  --muted:     #a9a7a1;
-  --line:      #38393c;
-  --line-strong: #505156;
-  --accent:    #7aa9f7;
+  --bg:        #2c2e33;   /* xám xanh trung tính, không đen: đỡ chói khi đọc lâu */
+  --surface:   #35373d;
+  --surface-2: #313339;
+  --ink:       #ebe9e4;   /* trắng ngà, không trắng gắt */
+  --muted:     #b6b4ae;
+  --line:      #474a51;
+  --line-strong: #62656d;
+  --accent:    #8bb4fa;
   --star:      #e0a526;
-  --danger:    #f2857d;
-  --danger-bg: #33201e;
+  --danger:    #f5948c;
+  --danger-bg: #412a2b;
   --ink-hover: #fff;
-  --text-2:    #c3c1bb;
+  --text-2:    #cfcdc7;
   --dot:       rgb(255 255 255 / .05);
-  --warm:      #2b2923;
+  --warm:      #3a372f;
   --scrim:     rgb(0 0 0 / .55);
-  --stage:     #303135;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
-  --img-dim:   brightness(.92);
+  --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+  --img-dim:   brightness(.95);
   --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
   color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:        #1e1f21;   /* xám than, không đen tuyền: đỡ chói khi đọc lâu */
-    --surface:   #27282b;
-    --surface-2: #232426;
-    --ink:       #e4e2dd;   /* trắng ngà, không trắng gắt */
-    --muted:     #a9a7a1;
-    --line:      #38393c;
-    --line-strong: #505156;
-    --accent:    #7aa9f7;
+    --bg:        #2c2e33;   /* xám xanh trung tính, không đen: đỡ chói khi đọc lâu */
+    --surface:   #35373d;
+    --surface-2: #313339;
+    --ink:       #ebe9e4;   /* trắng ngà, không trắng gắt */
+    --muted:     #b6b4ae;
+    --line:      #474a51;
+    --line-strong: #62656d;
+    --accent:    #8bb4fa;
     --star:      #e0a526;
-    --danger:    #f2857d;
-    --danger-bg: #33201e;
+    --danger:    #f5948c;
+    --danger-bg: #412a2b;
     --ink-hover: #fff;
-    --text-2:    #c3c1bb;
+    --text-2:    #cfcdc7;
     --dot:       rgb(255 255 255 / .05);
-    --warm:      #2b2923;
+    --warm:      #3a372f;
     --scrim:     rgb(0 0 0 / .55);
-    --stage:     #303135;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
-    --img-dim:   brightness(.92);
+    --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+    --img-dim:   brightness(.95);
     --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
     color-scheme: dark;
   }
@@ -97,7 +97,7 @@ body {
 img { display: block; max-width: 100%; }
 img[src*="reports/"] { filter: var(--img-dim); }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; touch-action: manipulation; }
 button:disabled { cursor: default; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 kbd {
@@ -326,7 +326,6 @@ kbd {
 .menu-lbl { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
 .menu-row .lang { height: 30px; padding: 2px; }
 .menu-row .lang button { min-width: 34px; padding: 0 8px; font-size: 12px; }
-.menu-row .theme-sw button { min-width: 0; padding: 0 7px; }
 .menu-sep { height: 1px; margin: 10px -14px; background: var(--line); }
 .menu-item {
   display: flex;
