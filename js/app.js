@@ -810,7 +810,7 @@ function renderContinue() {
         <span>${t(DATA.domains[r.domain].name)}${seen
           ? ` · ${fill(t(P.continue.page), { a: page, b: totalPages(r) })}` : ""}</span>
       </span>
-      <span class="btn">${seen ? fill(t(P.continue.openPage), { n: page }) : t(P.continue.open)}</span>
+      <span class="btn">${t(P.continue.open)}</span>
     </a>`;
 }
 
