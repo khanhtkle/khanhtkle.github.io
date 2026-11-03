@@ -240,12 +240,13 @@ function toast(msg) {
 /* ---------- 3. Khung chung ---------- */
 
 // Nút VI | EN. Ở trang đăng nhập nằm góc phải; sau đăng nhập nằm trong menu người dùng.
+// Bấm vào bất kỳ phía nào của nút (kể cả bên đang chọn) là đổi sang ngôn ngữ còn lại.
+// Phím Enter/Space trên nút con vẫn hoạt động vì sự kiện click nổi lên nhóm.
 function renderLangSwitch() {
-  document.querySelectorAll(".lang button").forEach(b => {
-    b.setAttribute("aria-pressed", b.dataset.lang === LANG);
-    b.onclick = () => {
-      if (b.dataset.lang === LANG) return;
-      setLang(b.dataset.lang);
+  document.querySelectorAll(".lang").forEach(group => {
+    group.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === LANG));
+    group.onclick = () => {
+      setLang(LANG === "vi" ? "en" : "vi");
       if (document.querySelector(".user-menu")) setPop(".user");   // giữ menu mở sau khi đổi ngôn ngữ
     };
   });

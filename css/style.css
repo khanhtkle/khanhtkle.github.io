@@ -179,6 +179,7 @@ kbd {
 
 /* Nút ngôn ngữ: hai lựa chọn liền nhau, bên đang dùng được tô đậm */
 .lang {
+  cursor: pointer;
   display: flex;
   flex: 0 0 auto;
   height: var(--ctl);
