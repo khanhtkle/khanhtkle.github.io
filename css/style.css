@@ -20,6 +20,10 @@
   --warm:      #fffdf7;   /* đầu hộp thoại chào */
   --scrim:     rgb(26 26 24 / .4);    /* lớp phủ sau hộp thoại */
   --stage:     var(--surface);        /* nền khung xem báo cáo */
+  --ctl-bg:    var(--surface);        /* nút và ô nhập: nền, viền, và khi rê chuột */
+  --ctl-line:  var(--line);
+  --ctl-bg-hover:   var(--surface-2);
+  --ctl-line-hover: var(--line-strong);
   --img-dim:   none;                  /* làm dịu ảnh báo cáo ở chế độ tối */
   color-scheme: light;
 
@@ -53,6 +57,10 @@
   --warm:      #3a372f;
   --scrim:     rgb(0 0 0 / .55);
   --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+  --ctl-bg:    #40434b;   /* nút sáng hơn thẻ, viền đạt khoảng 3:1 để nhận ra là nút bấm */
+  --ctl-line:  #868a95;
+  --ctl-bg-hover:   #4b4e58;
+  --ctl-line-hover: #a9adb8;
   --img-dim:   brightness(.95);
   --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
   color-scheme: dark;
@@ -76,6 +84,10 @@
     --warm:      #3a372f;
     --scrim:     rgb(0 0 0 / .55);
     --stage:     #3d4047;   /* khung báo cáo sáng hơn nền trang, slide trắng bớt chói */
+    --ctl-bg:    #40434b;   /* nút sáng hơn thẻ, viền đạt khoảng 3:1 để nhận ra là nút bấm */
+    --ctl-line:  #868a95;
+    --ctl-bg-hover:   #4b4e58;
+    --ctl-line-hover: #a9adb8;
     --img-dim:   brightness(.95);
     --pop-shadow: 0 8px 24px rgb(0 0 0 / .45);
     color-scheme: dark;
@@ -133,15 +145,15 @@ kbd {
   justify-content: center;
   height: 34px;
   padding: 0 14px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
   transition: border-color .15s, background .15s, transform .1s;
 }
-.btn:hover { border-color: var(--line-strong); background: var(--surface-2); }
+.btn:hover { border-color: var(--ctl-line-hover); background: var(--ctl-bg-hover); }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--ink); border-color: var(--ink); color: var(--surface); }
 .btn-primary:hover { background: var(--ink-hover); border-color: var(--ink-hover); }
@@ -153,9 +165,9 @@ kbd {
   flex: 0 0 auto;
   height: var(--ctl);
   padding: 3px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
 }
 .lang button {
   min-width: 38px;
@@ -201,14 +213,14 @@ kbd {
   width: var(--ctl);
   height: var(--ctl);
   margin: 0 4px 0 14px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   color: var(--ink);
   transition: border-color .15s, background .15s, transform .1s;
 }
 .back svg { width: 16px; height: 16px; }
-.back:hover { border-color: var(--line-strong); background: var(--surface-2); }
+.back:hover { border-color: var(--ctl-line-hover); background: var(--ctl-bg-hover); }
 .back:active { transform: scale(.96); }
 
 .topbar-title {
@@ -255,13 +267,13 @@ kbd {
   flex: 0 0 auto;
   width: var(--ctl);
   height: var(--ctl);
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   color: var(--ink);
   transition: border-color .15s, background .15s, color .15s, transform .1s;
 }
-.icon-btn:hover, .icon-btn[aria-expanded="true"] { border-color: var(--line-strong); background: var(--surface-2); }
+.icon-btn:hover, .icon-btn[aria-expanded="true"] { border-color: var(--ctl-line-hover); background: var(--ctl-bg-hover); }
 .icon-btn:active { transform: scale(.96); }
 .icon-btn[aria-pressed="true"] { color: var(--accent); }
 .icon-btn:disabled { opacity: .45; }
@@ -425,7 +437,7 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
   width: 100%;
   height: 44px;
   padding: 0 14px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
   font-family: var(--font);
   font-size: 15px;
@@ -474,8 +486,8 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
   gap: 8px;
   height: 34px;
   padding: 0 8px 0 10px;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--ctl-bg);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
   color: var(--muted);
 }
@@ -585,9 +597,9 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
 .sort select {
   height: 30px;
   padding: 0 8px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   color: var(--ink);
   font: inherit;
   font-size: 13px;
@@ -642,14 +654,14 @@ body[data-page="login"] { height: 100dvh; overflow: hidden; }
   width: 28px;
   height: 28px;
   padding: 0;   /* lề mặc định của button (6px hai bên) làm biểu tượng lệch phải */
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   color: var(--muted);
   transition: color .15s, border-color .15s, transform .1s;
 }
 .pin svg { width: 16px; height: 16px; transform: translateY(.5px); }   /* ngôi sao nặng phần dưới, hạ 0.5px cho cân mắt */
-.pin:hover { color: var(--ink); border-color: var(--line-strong); }
+.pin:hover { color: var(--ink); border-color: var(--ctl-line-hover); }
 .pin:active { transform: scale(.95); }
 .pin[aria-pressed="true"] { color: var(--star); }
 
@@ -703,9 +715,9 @@ dialog.dlg li { margin-bottom: 4px; }
   width: 100%;
   margin-top: 6px;
   padding: 8px 10px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   color: var(--ink);
   font: inherit;
   font-size: 14px;
@@ -771,9 +783,9 @@ body[data-page="viewer"] {
   display: flex;
   align-items: center;
   height: var(--ctl);
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   overflow: hidden;
 }
 .pgctl button { display: grid; place-items: center; width: 36px; height: 100%; color: var(--ink); transition: background .15s; }
@@ -801,9 +813,9 @@ body[data-page="viewer"] {
   display: flex;
   align-items: center;
   height: var(--ctl);
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--ctl-bg);
   overflow: hidden;
 }
 .zoom button { height: 100%; color: var(--muted); transition: background .15s, color .15s; }
@@ -904,8 +916,8 @@ body[data-page="viewer"] {
   gap: 12px;
   flex: 0 0 auto;
   padding: 8px 8px 0 8px;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--ctl-bg);
+  border: 1px solid var(--ctl-line);
   border-radius: var(--radius);
 }
 .strip {
@@ -1006,7 +1018,7 @@ body[data-page="viewer"] {
   .side { min-width: 0; position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
   .nav-list { flex-direction: row; flex-wrap: nowrap; gap: 6px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
   .nav-list::-webkit-scrollbar { display: none; }
-  .nav-item { flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); }
+  .nav-item { flex: 0 0 auto; border: 1px solid var(--ctl-line); background: var(--ctl-bg); }
   .nav-item .nav-name { flex: none; }
   .nav-label, .nav-reports, .search kbd, .sort-label { display: none; }
   .request-btn { margin-top: 0; }
@@ -1124,7 +1136,7 @@ dialog.dlg ul.contact li { margin: 0; }
 /* Nút xem ngang: chỉ máy cảm ứng đang để dọc, nằm ngay dưới khung báo cáo */
 .land-btn { display: none; }
 @media (pointer: coarse) and (orientation: portrait) {
-  .land-btn:not([hidden]) { display: flex; align-items: center; justify-content: center; gap: 8px; align-self: center; height: var(--ctl); padding: 0 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; transition: background .15s, transform .15s; }
+  .land-btn:not([hidden]) { display: flex; align-items: center; justify-content: center; gap: 8px; align-self: center; height: var(--ctl); padding: 0 16px; border: 1px solid var(--ctl-line); border-radius: var(--radius-sm); background: var(--ctl-bg); color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; transition: background .15s, transform .15s; }
   .land-btn:hover { background: var(--bg); }
   .land-btn:active { transform: scale(.97); }
   .land-btn .ico { width: 16px; height: 16px; color: var(--muted); }
